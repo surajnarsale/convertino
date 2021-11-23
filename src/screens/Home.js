@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	View,
 	Text,
@@ -16,11 +16,17 @@ import { Button } from "../components/atom/Button";
 const screen = Dimensions.get("window");
 
 const Home = ({ navigation }) => {
-	const baseCurrency = "USD";
-	const quoteCurrency = "INR";
+	const [baseCurrency, setBaseCurrency] = useState("USD");
+	const [quoteCurrency, setQuoteCurrency] = useState("GBP");
+	const [value, setValue] = useState("100");
+
 	const conversionRate = 0.89824;
 	const date = "2020-03-23";
 
+	const swapCurrencies = () => {
+		setBaseCurrency(quoteCurrency);
+		setQuoteCurrency(baseCurrency);
+	};
 	return (
 		<View style={styles.container}>
 			<ScrollView>
@@ -35,7 +41,7 @@ const Home = ({ navigation }) => {
 				<View style={styles.inputContainer}>
 					<ConversionInput
 						text="USD"
-						value="123"
+						value={value}
 						editable={true}
 						onButtonPress={() =>
 							navigation.push("CurrencyList", {
@@ -43,12 +49,15 @@ const Home = ({ navigation }) => {
 								activeCurrency: baseCurrency,
 							})
 						}
-						onChangeText={(text) => console.log("text:", text)}
+						onChangeText={(text) => setValue(text)}
 						keyboardType="numeric"
 					/>
 					<ConversionInput
 						text="INR"
-						value="123"
+						value={
+							value &&
+							`${(parseFloat(value) * conversionRate).toFixed(2)}`
+						}
 						editable={false}
 						onButtonPress={() =>
 							navigation.push("CurrencyList", {
@@ -66,7 +75,7 @@ const Home = ({ navigation }) => {
 				</Text>
 				<Button
 					text="Reverse Currencies"
-					onPress={() => alert("REVERSE CURRENCY")}
+					onPress={() => swapCurrencies()}
 				/>
 			</ScrollView>
 		</View>
