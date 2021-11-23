@@ -155,13 +155,20 @@
 import React from "react";
 import { View, Text, StyleSheet, StatusBar } from "react-native";
 import Logo from "../components/Icons/Logo";
+import COLOR from "../constants/colors";
 
 const Home = () => {
 	return (
 		<View style={styles.container}>
-			<StatusBar barStyle="light-content" backgroundColor="red" />
-			<Text>Home screen</Text>
-			<Logo />
+			<StatusBar barStyle="light-content" backgroundColor={COLOR.blue} />
+
+			<View style={styles.logoContainer}>
+				<View style={styles.logoWrapper}>
+					<Logo />
+				</View>
+				<Text style={styles.logoText}>CONVERTINO</Text>
+				<Text style={styles.logoCaption}>currency conveter</Text>
+			</View>
 		</View>
 	);
 };
@@ -171,6 +178,25 @@ export default Home;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "red",
+		backgroundColor: COLOR.blue,
+	},
+	logoContainer: {
+		alignSelf: "center",
+		marginTop: 80,
+	},
+	logoWrapper: {
+		alignItems: "center",
+	},
+	logoText: {
+		textAlign: "center",
+		fontSize: 25,
+		fontWeight: "bold",
+		color: COLOR.white,
+		marginTop: 7,
+	},
+	logoCaption: {
+		textAlign: "center",
+		fontSize: 15,
+		color: COLOR.offWhite,
 	},
 });
