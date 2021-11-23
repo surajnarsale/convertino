@@ -15,7 +15,7 @@ import { Button } from "../components/atom/Button";
 
 const screen = Dimensions.get("window");
 
-const Home = () => {
+const Home = ({ navigation }) => {
 	const baseCurrency = "USD";
 	const quoteCurrency = "GBP";
 	const conversionRate = 0.89824;
@@ -37,13 +37,13 @@ const Home = () => {
 						text="USD"
 						value="123"
 						editable={true}
-						onButtonPress={() => alert("todo!")}
+						onButtonPress={() => navigation.push("CurrencyList")}
 					/>
 					<ConversionInput
 						text="INR"
 						value="123"
 						editable={false}
-						onButtonPress={() => alert("todo!")}
+						onButtonPress={() => navigation.push("CurrencyList")}
 					/>
 				</View>
 				<Text style={styles.text}>
@@ -52,7 +52,10 @@ const Home = () => {
 						"MMM do, yyyy"
 					)}`}
 				</Text>
-				<Button text="Reverse Currencies" onPress={() => alert("swap")} />
+				<Button
+					text="Reverse Currencies"
+					onPress={() => navigation.push("CurrencyList")}
+				/>
 			</ScrollView>
 		</View>
 	);
