@@ -17,7 +17,7 @@ const screen = Dimensions.get("window");
 
 const Home = ({ navigation }) => {
 	const baseCurrency = "USD";
-	const quoteCurrency = "GBP";
+	const quoteCurrency = "INR";
 	const conversionRate = 0.89824;
 	const date = "2020-03-23";
 
@@ -37,13 +37,25 @@ const Home = ({ navigation }) => {
 						text="USD"
 						value="123"
 						editable={true}
-						onButtonPress={() => navigation.push("CurrencyList")}
+						onButtonPress={() =>
+							navigation.push("CurrencyList", {
+								title: "Base Currency",
+								activeCurrency: baseCurrency,
+							})
+						}
+						onChangeText={(text) => console.log("text:", text)}
+						keyboardType="numeric"
 					/>
 					<ConversionInput
 						text="INR"
 						value="123"
 						editable={false}
-						onButtonPress={() => navigation.push("CurrencyList")}
+						onButtonPress={() =>
+							navigation.push("CurrencyList", {
+								title: "Quote Currency",
+								activeCurrency: quoteCurrency,
+							})
+						}
 					/>
 				</View>
 				<Text style={styles.text}>

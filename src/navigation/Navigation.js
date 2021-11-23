@@ -13,7 +13,13 @@ const MainStackScreen = () => (
 			component={Home}
 			options={{ headerShown: false }}
 		/>
-		<MainStack.Screen name="CurrencyList" component={CurrencyList} />
+		<MainStack.Screen
+			name="CurrencyList"
+			component={CurrencyList}
+			options={({ route }) => ({
+				title: route.params.title,
+			})}
+		/>
 	</MainStack.Navigator>
 );
 
