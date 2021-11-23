@@ -27,7 +27,7 @@ export default ({ navigation, route }) => {
 						<RowItem
 							title={item}
 							onPress={() => {
-								navigation.pop();
+								params.onChange(item), navigation.pop();
 							}}
 							rightIcon={
 								selected && (

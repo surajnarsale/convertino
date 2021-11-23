@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
 	View,
 	Text,
@@ -12,21 +12,22 @@ import Logo from "../components/Icons/Logo";
 import COLOR from "../constants/colors";
 import { format } from "date-fns";
 import { Button } from "../components/atom/Button";
+import { ConversionContext } from "../util/ConversionContext";
 
 const screen = Dimensions.get("window");
 
 const Home = ({ navigation }) => {
-	const [baseCurrency, setBaseCurrency] = useState("USD");
-	const [quoteCurrency, setQuoteCurrency] = useState("GBP");
 	const [value, setValue] = useState("100");
-
 	const conversionRate = 0.89824;
 	const date = "2020-03-23";
+	const {
+		baseCurrency,
+		quoteCurrency,
+		swapCurrencies,
+		setBaseCurrency,
+		setQuoteCurrency,
+	} = useContext(ConversionContext);
 
-	const swapCurrencies = () => {
-		setBaseCurrency(quoteCurrency);
-		setQuoteCurrency(baseCurrency);
-	};
 	return (
 		<View style={styles.container}>
 			<ScrollView>
@@ -40,20 +41,21 @@ const Home = ({ navigation }) => {
 				</View>
 				<View style={styles.inputContainer}>
 					<ConversionInput
-						text="USD"
+						text={baseCurrency}
 						value={value}
 						editable={true}
 						onButtonPress={() =>
 							navigation.push("CurrencyList", {
 								title: "Base Currency",
 								activeCurrency: baseCurrency,
+								onChange: (currency) => setBaseCurrency(currency),
 							})
 						}
 						onChangeText={(text) => setValue(text)}
 						keyboardType="numeric"
 					/>
 					<ConversionInput
-						text="INR"
+						text={quoteCurrency}
 						value={
 							value &&
 							`${(parseFloat(value) * conversionRate).toFixed(2)}`
@@ -63,6 +65,7 @@ const Home = ({ navigation }) => {
 							navigation.push("CurrencyList", {
 								title: "Quote Currency",
 								activeCurrency: quoteCurrency,
+								onChange: (currency) => setQuoteCurrency(currency),
 							})
 						}
 					/>

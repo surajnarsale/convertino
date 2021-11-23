@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from "../screens/Home";
 import CurrencyList from "../screens/CurrencyList";
+import { ConversionContextProvider } from "../util/ConversionContext";
 
 const MainStack = createStackNavigator();
 const MainStackScreen = () => (
@@ -25,6 +26,8 @@ const MainStackScreen = () => (
 
 export default () => (
 	<NavigationContainer>
-		<MainStackScreen />
+		<ConversionContextProvider>
+			<MainStackScreen />
+		</ConversionContextProvider>
 	</NavigationContainer>
 );
