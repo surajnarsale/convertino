@@ -66,7 +66,7 @@ const Home = ({ navigation }) => {
 				</Text>
 				<Button
 					text="Reverse Currencies"
-					onPress={() => navigation.push("CurrencyList")}
+					onPress={() => alert("REVERSE CURRENCY")}
 				/>
 			</ScrollView>
 		</View>
