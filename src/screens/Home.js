@@ -1,34 +1,59 @@
 import React from "react";
-import { View, Text, StyleSheet, StatusBar } from "react-native";
+import {
+	View,
+	Text,
+	StyleSheet,
+	StatusBar,
+	ScrollView,
+	Dimensions,
+} from "react-native";
 import ConversionInput from "../components/atom/ConversionInput";
 import Logo from "../components/Icons/Logo";
 import COLOR from "../constants/colors";
+import { format } from "date-fns";
+import { Button } from "../components/atom/Button";
+
+const screen = Dimensions.get("window");
 
 const Home = () => {
+	const baseCurrency = "USD";
+	const quoteCurrency = "GBP";
+	const conversionRate = 0.89824;
+	const date = "2020-03-23";
+
 	return (
 		<View style={styles.container}>
-			<StatusBar barStyle="light-content" backgroundColor={COLOR.blue} />
-			<View style={styles.logoContainer}>
-				<View style={styles.logoWrapper}>
-					<Logo />
+			<ScrollView>
+				<StatusBar barStyle="light-content" backgroundColor={COLOR.blue} />
+				<View style={styles.logoContainer}>
+					<View style={styles.logoWrapper}>
+						<Logo />
+					</View>
+					<Text style={styles.logoText}>CONVERTINO</Text>
+					<Text style={styles.logoCaption}>currency conveter</Text>
 				</View>
-				<Text style={styles.logoText}>CONVERTINO</Text>
-				<Text style={styles.logoCaption}>currency conveter</Text>
-			</View>
-			<View style={styles.inputContainer}>
-				<ConversionInput
-					text="USD"
-					value="123"
-					editable={true}
-					onButtonPress={() => alert("todo!")}
-				/>
-				<ConversionInput
-					text="INR"
-					value="123"
-					editable={false}
-					onButtonPress={() => alert("todo!")}
-				/>
-			</View>
+				<View style={styles.inputContainer}>
+					<ConversionInput
+						text="USD"
+						value="123"
+						editable={true}
+						onButtonPress={() => alert("todo!")}
+					/>
+					<ConversionInput
+						text="INR"
+						value="123"
+						editable={false}
+						onButtonPress={() => alert("todo!")}
+					/>
+				</View>
+				<Text style={styles.text}>
+					{`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${format(
+						new Date(date),
+						"MMM do, yyyy"
+					)}`}
+				</Text>
+				<Button text="Reverse Currencies" onPress={() => alert("swap")} />
+			</ScrollView>
 		</View>
 	);
 };
@@ -42,7 +67,7 @@ const styles = StyleSheet.create({
 	},
 	logoContainer: {
 		alignSelf: "center",
-		marginTop: 80,
+		marginTop: screen.height * 0.1,
 		marginBottom: 40,
 	},
 	logoWrapper: {
@@ -62,5 +87,10 @@ const styles = StyleSheet.create({
 	},
 	inputContainer: {
 		marginBottom: 10,
+	},
+	text: {
+		fontSize: 14,
+		color: COLOR.white,
+		textAlign: "center",
 	},
 });
